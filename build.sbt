@@ -7,5 +7,9 @@ lazy val root = (project in file("."))
     name := "test"
   )
 
-libraryDependencies += "dev.zio" %% "zio-interop-cats" % "2.5.1.0"
-libraryDependencies += "dev.zio" %% "zio-interop-cats" % "3.1.1.0"
+libraryDependencies ++= Seq(
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
+  "ch.qos.logback" % "logback-classic" % "1.3.5",
+  "org.scalactic" %% "scalactic" % "3.2.18",
+  "org.scalatest" %% "scalatest" % "3.2.18" % "test"
+)
