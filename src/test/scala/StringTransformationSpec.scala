@@ -68,4 +68,24 @@ class StringTransformationSpec extends AnyWordSpec with should.Matchers {
       ) shouldBe Map("hello" -> 270)
     }
   }
+  "words are added in the first-entry order" in {
+    val transformedText = transformText(List("a c b")).toList
+    transformedText should not be List("c" -> 1, "b" -> 1, "a" -> 1)
+    transformedText shouldBe List("a" -> 1, "c" -> 1, "b" -> 1)
+  }
+
+  "multi-entering of words doesn't change the order" in {
+    val transformedTextA = transformText(List("a c b a a a", "a a a")).toList
+    val transformedTextB = transformText(List("a c b b b b", "b b b")).toList
+    val transformedTextC = transformText(List("a c b c c c", "c c c")).toList
+
+    transformedTextA should not be List("c" -> 1, "b" -> 1, "a" -> 7)
+    transformedTextA shouldBe List("a" -> 7, "c" -> 1, "b" -> 1)
+
+    transformedTextB should not be List("c" -> 1, "b" -> 7, "a" -> 1)
+    transformedTextB shouldBe List("a" -> 1, "c" -> 1, "b" -> 7)
+
+    transformedTextC should not be List("c" -> 7, "b" -> 1, "a" -> 1)
+    transformedTextC shouldBe List("a" -> 1, "c" -> 7, "b" -> 1)
+  }
 }
