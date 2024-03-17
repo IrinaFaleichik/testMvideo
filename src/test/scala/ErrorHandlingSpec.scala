@@ -1,6 +1,7 @@
 import org.scalatest.matchers.should
 import Main.handleTheFlow
 import org.scalatest.wordspec.AnyWordSpec
+import Scope._
 
 class ErrorHandlingSpec extends AnyWordSpec with should.Matchers {
 
@@ -9,6 +10,10 @@ class ErrorHandlingSpec extends AnyWordSpec with should.Matchers {
   "Validation" when {
     "there is no arguments" in {
       handleTheFlow(Array()) shouldBe Left(Errors.NoArguments)
+    }
+
+    "there is too many arguments" in {
+      handleTheFlow(Array(validFile, validFile)) shouldBe Left(Errors.TooManyArguments)
     }
 
     "filename is empty" in {
