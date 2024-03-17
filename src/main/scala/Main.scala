@@ -2,13 +2,17 @@ import scala.Option.when
 import scala.collection.immutable.ListMap
 import scala.language.postfixOps
 import Scope._
+import com.typesafe.scalalogging._
+import org.slf4j.LoggerFactory
 
 object Main extends Scope.Default {
 
+  private val logger = Logger(LoggerFactory.getLogger(this.getClass))
+
   def main(args: Array[String]): Unit = {
     handleTheFlow(args) match {
-      case Left(ex) => Console.err.println(ex.getMessage)
-      case Right(value) => Console.println(value)
+      case Left(ex) => logger.error(ex.getMessage)
+      case Right(value) => logger.info(s"$value")
     }
   }
 
